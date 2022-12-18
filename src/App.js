@@ -33,7 +33,7 @@ function App() {
   }
 
   const solutionRow = (solution) ? 
-    solution.paths.map(path => (<Row>{path.join(', ')}</Row>)) :
+    solution.paths.map((path, i) => (<Row key={"solution_"+i}>{path.join(', ')}</Row>)) :
     <Row>No solution</Row>;
 
   return (

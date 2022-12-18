@@ -1,7 +1,7 @@
 function calculate(stamps, target) {
     stamps.sort((a, b) => a - b);
 
-    const solutions = new Map;
+    const solutions = new Map();
     const makeSolution = function (prev, stamp) {
         if (prev === 0) {
             return {
