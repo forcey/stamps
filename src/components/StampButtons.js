@@ -4,8 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-function StampButtons() {
-  const stamps = [1, 3, 5, 10, 33, "forever", 65, 86, "global forever"];
+function StampButtons({stamps, onSelectionChanged}) {
   const [selected, setSelected] = useState(new Set());
 
   const isChecked = function (stamp) {
@@ -17,7 +16,9 @@ function StampButtons() {
     } else {
       selected.delete(stamp);
     }
-    setSelected(new Set(selected));
+    const newSelected = new Set(selected);
+    setSelected(newSelected);
+    onSelectionChanged(newSelected);
   }
 
   const renderButton = function(value) {
