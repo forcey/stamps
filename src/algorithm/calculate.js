@@ -1,5 +1,5 @@
 function calculate(stamps, target) {
-    stamps.sort();
+    stamps.sort((a, b) => a - b);
 
     const solutions = new Map;
     const makeSolution = function (prev, stamp) {
@@ -33,7 +33,7 @@ function calculate(stamps, target) {
         if (!oldSolution || newSolution.count < oldSolution.count) {
             solutions.set(x, newSolution);
         }
-        if (oldSolution && newSolution.count === oldSolution.count) {
+        else if (oldSolution && newSolution.count === oldSolution.count) {
             solutions.set(x, {
                 count: newSolution.count,
                 paths: oldSolution.paths.concat(newSolution.paths),
