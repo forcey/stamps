@@ -1,30 +1,47 @@
 import React, { useState } from 'react';
 import ToggleButton from 'react-bootstrap/ToggleButton';
-import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 function StampButtons() {
-  const [value, setValue] = useState([1, 3]);
+  const stamps = [1, 3, 5, 10, 33, "forever", 65, 86, "global forever"];
+  const [selected, setSelected] = useState(new Set());
 
-  /*
-   * The second argument that will be passed to
-   * `handleChange` from `ToggleButtonGroup`
-   * is the SyntheticEvent object, but we are
-   * not using it in this example so we will omit it.
-   */
-  const handleChange = (val) => setValue(val);
+  const isChecked = function (stamp) {
+    return selected.has(stamp);
+  }
+  const setChecked = function (stamp, checked) {
+    if (checked) {
+      selected.add(stamp);
+    } else {
+      selected.delete(stamp);
+    }
+    setSelected(new Set(selected));
+  }
 
+  const renderButton = function(value) {
+    return <ToggleButton
+      className="mb-2"
+      id={"toggle-" + value}
+      key={value}
+      type="checkbox"
+      variant="outline-primary"
+      checked={isChecked(value)}
+      onChange={e => setChecked(value, e.currentTarget.checked)}
+      style={{ marginRight: "1em" }}
+    >
+      {value}
+    </ToggleButton>;
+  }
+
+  const stampButtons = stamps.map(renderButton);
   return (
-    <ToggleButtonGroup type="checkbox" value={value} onChange={handleChange}>
-      <ToggleButton id="tbg-btn-1" value={1}>
-        Option 1
-      </ToggleButton>
-      <ToggleButton id="tbg-btn-2" value={2}>
-        Option 2
-      </ToggleButton>
-      <ToggleButton id="tbg-btn-3" value={3}>
-        Option 3
-      </ToggleButton>
-    </ToggleButtonGroup>
+    <Container fluid>
+      <Row>
+        <Col>{stampButtons}</Col>
+      </Row>
+    </Container>
   );
 }
 
