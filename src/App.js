@@ -12,6 +12,7 @@ function App() {
   const stamps = [1, 3, 5, 10, 33, "forever", 65, 86, "global forever"];
   const [selected, setSelected] = useState(new Set());
   const [target, setTarget] = useState(0);
+  const [solution, setSolution] = useState(null);
 
   const onSelectionChanged = function (selected) {
     setSelected(selected);
@@ -27,9 +28,13 @@ function App() {
         return value;
       }
     });
-    const solution = calculate(values, target);
-    console.log(solution);
+    const solution = calculate(values, parseInt(target));
+    setSolution(solution);
   }
+
+  const solutionRow = (solution) ? 
+    solution.paths.map(path => (<Row>{path.join(', ')}</Row>)) :
+    <Row>No solution</Row>;
 
   return (
     <div className="App">
@@ -46,6 +51,7 @@ function App() {
             <Button onClick={onCalculate}>Calculate</Button>
           </Col>
         </Row>
+        {solutionRow}
       </Container>
     </div>
   );
