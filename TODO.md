@@ -6,3 +6,4 @@
 - validation for invalid input
 - show approximate solutions when exact solution is not possible
 - postage calculator / grid of common postages
+- typescript
