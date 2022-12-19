@@ -11,6 +11,8 @@ function Postage({ onSetPostage }) {
         onSetPostage(parseInt(customValue));
     }
 
+    // https://pe.usps.com/text/dmm300/Notice123.htm
+    // To be updated 1/22/2023. https://about.usps.com/newsroom/national-releases/2022/1007-usps-announces-new-prices-for-2023.htm
     return (
         <Table striped bordered hover>
             <thead>
@@ -20,6 +22,7 @@ function Postage({ onSetPostage }) {
                     <th>2 oz</th>
                     <th>3 oz</th>
                     <th>4 oz</th>
+                    <th>International 1 oz</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,6 +32,7 @@ function Postage({ onSetPostage }) {
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
+                    <td>{button(140, "$1.40")}</td>
                 </tr>
                 <tr>
                     <td>Letters</td>
@@ -36,6 +40,7 @@ function Postage({ onSetPostage }) {
                     <td>{button(84, "84¢")}</td>
                     <td>{button(108, "$1.08")}</td>
                     <td>{button(132, "$1.32")} (up to 3.5 oz)</td>
+                    <td>{button(140, "$1.40")}</td>
                 </tr>
                 <tr>
                     <td>Large Envelopes</td>
@@ -43,10 +48,11 @@ function Postage({ onSetPostage }) {
                     <td>{button(144, "$1.44")}</td>
                     <td>{button(168, "$1.68")}</td>
                     <td>{button(192, "$1.92")}</td>
+                    <td>{button(275, "$2.75")}</td>
                 </tr>
                 <tr>
                     <td>Custom</td>
-                    <td colSpan={4}>
+                    <td colSpan={5}>
                         <Form.Control id="target" type="number"
                             placeholder="enter postage in cents" htmlSize="10"
                             onChange={e => setCustomValue(e.target.value)}
