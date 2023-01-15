@@ -4,21 +4,17 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-function getId(stamp) {
-  return stamp.name.replace(' ', '-') + stamp.value;
-}
 function StampButtons({ stamps, onSelectionChanged }) {
   const [selected, setSelected] = useState(new Map());
 
   const isChecked = function (stamp) {
-    return selected.has(getId(stamp));
+    return selected.has(stamp.id);
   }
   const setChecked = function (stamp, checked) {
-    const id = getId(stamp);
     if (checked) {
-      selected.set(id, stamp);
+      selected.set(stamp.id, stamp);
     } else {
-      selected.delete(id);
+      selected.delete(stamp.id);
     }
     const newSelected = new Map(selected);
     setSelected(newSelected);
@@ -26,11 +22,10 @@ function StampButtons({ stamps, onSelectionChanged }) {
   }
 
   const renderButton = function (stamp) {
-    const id = getId(stamp);
     return <ToggleButton
       className="mb-2"
-      id={"toggle-" + id}
-      key={id}
+      id={"toggle-" + stamp.id}
+      key={stamp.id}
       type="checkbox"
       variant="outline-primary"
       checked={isChecked(stamp)}

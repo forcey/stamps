@@ -22,6 +22,7 @@ export class Stamp {
     constructor(name, value) {
         this.name = name;
         this.value = value;
+        this.id = name.replace(/[^a-zA-Z0-9]/g, '-') + "-" + value;
     }
 
     static fixed(value) {
