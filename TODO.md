@@ -1,6 +1,5 @@
 TODO
 - better UI
-- show forever stamp values
 - store stamp selection in a cookie
 - add custom stamps
 - no click calculation
@@ -10,3 +9,4 @@ TODO
 
 DONE
 - postage calculator / grid of common postages
+- show forever stamp values
