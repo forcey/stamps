@@ -2,11 +2,16 @@ import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import React, { useState } from 'react';
+import { calculatePrice, displayPrice } from '../algorithm/stamp';
 
 function Postage({ onSetPostage }) {
     const [customValue, setCustomValue] = useState(0);
 
-    const button = (value, text) => <Button variant="primary" onClick={e => onSetPostage(value)}>{text}</Button>
+    const addPriceButton = (product, international=false, weight=1) => {
+        const value = calculatePrice(product, international, weight);
+        const text = displayPrice(value);
+        return <Button variant="primary" onClick={e => onSetPostage(value)}>{text}</Button>
+    }
     const onCalculate = function () {
         onSetPostage(parseInt(customValue));
     }
@@ -28,27 +33,27 @@ function Postage({ onSetPostage }) {
             <tbody>
                 <tr>
                     <td>Postcards</td>
-                    <td>{button(44, "44¢")}</td>
+                    <td>{addPriceButton("postcard")}</td>
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
-                    <td>{button(140, "$1.40")}</td>
+                    <td>{addPriceButton("postcard", true)}</td>
                 </tr>
                 <tr>
                     <td>Letters</td>
-                    <td>{button(60, "60¢")}</td>
-                    <td>{button(84, "84¢")}</td>
-                    <td>{button(108, "$1.08")}</td>
-                    <td>{button(132, "$1.32")} (up to 3.5 oz)</td>
-                    <td>{button(140, "$1.40")}</td>
+                    <td>{addPriceButton("letter", false, 1)}</td>
+                    <td>{addPriceButton("letter", false, 2)}</td>
+                    <td>{addPriceButton("letter", false, 3)}</td>
+                    <td>{addPriceButton("letter", false, 4)} (up to 3.5 oz)</td>
+                    <td>{addPriceButton("letter", true)}</td>
                 </tr>
                 <tr>
                     <td>Large Envelopes</td>
-                    <td>{button(120, "$1.20")}</td>
-                    <td>{button(144, "$1.44")}</td>
-                    <td>{button(168, "$1.68")}</td>
-                    <td>{button(192, "$1.92")}</td>
-                    <td>{button(275, "$2.75")}</td>
+                    <td>{addPriceButton("large_envelope", false, 1)}</td>
+                    <td>{addPriceButton("large_envelope", false, 2)}</td>
+                    <td>{addPriceButton("large_envelope", false, 3)}</td>
+                    <td>{addPriceButton("large_envelope", false, 4)} (up to 3.5 oz)</td>
+                    <td>{addPriceButton("large_envelope", true)}</td>
                 </tr>
                 <tr>
                     <td>Custom</td>
