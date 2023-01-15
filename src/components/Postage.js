@@ -7,7 +7,7 @@ import { calculatePrice, displayPrice } from '../algorithm/stamp';
 function Postage({ onSetPostage }) {
     const [customValue, setCustomValue] = useState(0);
 
-    const addPriceButton = (product, international=false, weight=1) => {
+    const addPriceButton = (product, international = false, weight = 1) => {
         const value = calculatePrice(product, international, weight);
         const text = displayPrice(value);
         return <Button variant="primary" onClick={e => onSetPostage(value)}>{text}</Button>

@@ -1,5 +1,5 @@
 import priceTable from '../algorithm/prices_20220710.json';
-//import priceTable from '../algorithm/prices_20230122.json';
+// import priceTable from '../algorithm/prices_20230122.json';
 
 export function displayPrice(value) {
     if (value < 100) {
@@ -9,7 +9,7 @@ export function displayPrice(value) {
     }
 }
 
-export function calculatePrice(product, international=false, weight=1) {
+export function calculatePrice(product, international = false, weight = 1) {
     const price = priceTable[product];
     if (international) {
         return price['international'];
@@ -23,7 +23,7 @@ export class Stamp {
         this.name = name;
         this.value = value;
     }
-    
+
     static fixed(value) {
         return new Stamp(displayPrice(value), value);
     }

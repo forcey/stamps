@@ -1,5 +1,5 @@
 function calculate(stamps, target) {
-    stamps.sort((a, b) => a - b);
+    stamps.sort((a, b) => a.value - b.value);
 
     const solutions = new Map();
     const makeSolution = function (prev, stamp) {
@@ -16,7 +16,7 @@ function calculate(stamps, target) {
                 paths: [],
             };
             for (var path of prevSolution.paths) {
-                if (path[0] >= stamp) {
+                if (path[0].value >= stamp.value) {
                     newSolution.paths.push([stamp].concat(path));
                 }
             }
@@ -43,10 +43,10 @@ function calculate(stamps, target) {
 
     for (var i = 1; i <= target; i++) {
         for (var stamp of stamps) {
-            if (stamp > i) {
+            if (stamp.value > i) {
                 break;
             }
-            const newSolution = makeSolution(i - stamp, stamp);
+            const newSolution = makeSolution(i - stamp.value, stamp);
             updateSolution(i, newSolution);
         }
     }

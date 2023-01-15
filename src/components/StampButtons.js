@@ -4,35 +4,40 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-function StampButtons({stamps, onSelectionChanged}) {
-  const [selected, setSelected] = useState(new Set());
+function getId(stamp) {
+  return stamp.name.replace(' ', '-') + stamp.value;
+}
+function StampButtons({ stamps, onSelectionChanged }) {
+  const [selected, setSelected] = useState(new Map());
 
   const isChecked = function (stamp) {
-    return selected.has(stamp);
+    return selected.has(getId(stamp));
   }
   const setChecked = function (stamp, checked) {
+    const id = getId(stamp);
     if (checked) {
-      selected.add(stamp);
+      selected.set(id, stamp);
     } else {
-      selected.delete(stamp);
+      selected.delete(id);
     }
-    const newSelected = new Set(selected);
+    const newSelected = new Map(selected);
     setSelected(newSelected);
     onSelectionChanged(newSelected);
   }
 
-  const renderButton = function(value) {
+  const renderButton = function (stamp) {
+    const id = getId(stamp);
     return <ToggleButton
       className="mb-2"
-      id={"toggle-" + value}
-      key={value}
+      id={"toggle-" + id}
+      key={id}
       type="checkbox"
       variant="outline-primary"
-      checked={isChecked(value)}
-      onChange={e => setChecked(value, e.currentTarget.checked)}
+      checked={isChecked(stamp)}
+      onChange={e => setChecked(stamp, e.currentTarget.checked)}
       style={{ marginRight: "1em" }}
     >
-      {value}
+      {stamp.name}
     </ToggleButton>;
   }
 
