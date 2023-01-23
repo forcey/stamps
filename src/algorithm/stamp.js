@@ -1,5 +1,4 @@
-import priceTable from '../algorithm/prices_20220710.json';
-// import priceTable from '../algorithm/prices_20230122.json';
+import priceTable from '../algorithm/prices_20230122.json';
 
 export function displayPrice(value) {
     if (value < 100) {
