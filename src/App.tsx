@@ -4,20 +4,16 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import StampButtons from './components/StampButtons';
 import Postage from './components/Postage';
-import calculate from './algorithm/calculate';
+import calculate, { Solution } from './algorithm/calculate';
 import { Stamp } from './algorithm/stamp';
 
 import './App.css';
-
-type Solution = {
-  paths: Array<Array<Stamp>>;
-}
 
 function App() {
   const stamps = ([1, 3, 5, 10, 33, 65, 86].map(v => Stamp.fixed(v)).concat(
     [Stamp.forever(), Stamp.globalForever()])).sort((a, b) => a.value - b.value);
   const [selected, setSelected] = useState(new Map());
-  const [solution, setSolution] = useState<Solution|null>(null);
+  const [solution, setSolution] = useState<Solution | null>(null);
 
   const getSolutions = function (postage: number) {
     const solution = calculate(Array.from(selected.values()), postage);
@@ -35,7 +31,7 @@ function App() {
           <Col><StampButtons stamps={stamps} onSelectionChanged={setSelected} /></Col>
         </Row>
         <Row>
-          <Col><Postage onSetPostage={(p:number) => getSolutions(p)} /></Col>
+          <Col><Postage onSetPostage={(p: number) => getSolutions(p)} /></Col>
         </Row>
         {solutionRow}
       </Container>

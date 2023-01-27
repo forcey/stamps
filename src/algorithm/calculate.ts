@@ -1,8 +1,15 @@
-function calculate(stamps, target) {
+import { Stamp } from "./stamp";
+
+export type Solution = {
+    count: number;
+    paths: Array<Array<Stamp>>;
+}
+
+function calculate(stamps: Stamp[], target: number): Solution | null {
     stamps.sort((a, b) => a.value - b.value);
 
-    const solutions = new Map();
-    const makeSolution = function (prev, stamp) {
+    const solutions = new Map<number, Solution>();
+    const makeSolution = function (prev: number, stamp: Stamp): Solution | null {
         if (prev === 0) {
             return {
                 count: 1,
@@ -11,7 +18,7 @@ function calculate(stamps, target) {
         }
         const prevSolution = solutions.get(prev);
         if (prevSolution !== undefined) {
-            const newSolution = {
+            const newSolution: Solution = {
                 count: prevSolution.count + 1,
                 paths: [],
             };
@@ -25,7 +32,7 @@ function calculate(stamps, target) {
         return null;
     }
 
-    const updateSolution = function (x, newSolution) {
+    const updateSolution = function (x: number, newSolution: Solution | null) {
         if (!newSolution) {
             return;
         }
@@ -50,7 +57,7 @@ function calculate(stamps, target) {
             updateSolution(i, newSolution);
         }
     }
-    return solutions.get(target);
+    return solutions.get(target) ?? null;
 }
 
 export default calculate;

@@ -2,12 +2,12 @@ import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import React, { useState } from 'react';
-import { calculatePrice, displayPrice } from '../algorithm/stamp';
+import { calculatePrice, displayPrice, Product } from '../algorithm/stamp';
 
-function Postage({ onSetPostage }) {
-    const [customValue, setCustomValue] = useState(0);
+function Postage({ onSetPostage }: { onSetPostage: (p: number) => void }) {
+    const [customValue, setCustomValue] = useState('');
 
-    const addPriceButton = (product, international = false, weight = 1) => {
+    const addPriceButton = (product: Product, international = false, weight = 1) => {
         const value = calculatePrice(product, international, weight);
         const text = displayPrice(value);
         return <Button variant="primary" onClick={e => onSetPostage(value)}>{text}</Button>
@@ -59,7 +59,7 @@ function Postage({ onSetPostage }) {
                     <td>Custom</td>
                     <td colSpan={5}>
                         <Form.Control id="target" type="number"
-                            placeholder="enter postage in cents" htmlSize="10"
+                            placeholder="enter postage in cents" htmlSize={10}
                             onChange={e => setCustomValue(e.target.value)}
                             style={{ width: "20em", display: "inline-block", marginRight: "1em" }}
                             min={1} max={1000}

@@ -1,6 +1,7 @@
 {
     "postcard": {
         "base": 48,
+        "additional": 0,
         "international": 145
     },
     "letter": {
