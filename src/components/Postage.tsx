@@ -1,5 +1,12 @@
 import {
-    Table, Button,
+    Table,
+    TableContainer,
+    Thead,
+    Tbody,
+    Tr,
+    Th,
+    Td,
+    Button,
     NumberInput,
     NumberInputField,
     NumberInputStepper,
@@ -27,62 +34,64 @@ function Postage({ onSetPostage }: { onSetPostage: (p: number) => void }) {
     // https://pe.usps.com/text/dmm300/Notice123.htm
     // To be updated 1/22/2023. https://about.usps.com/newsroom/national-releases/2022/1007-usps-announces-new-prices-for-2023.htm
     return (
-        <Table variant='striped'>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>1 oz</th>
-                    <th>2 oz</th>
-                    <th>3 oz</th>
-                    <th>4 oz</th>
-                    <th>International 1 oz</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Postcards</td>
-                    <td>{addPriceButton("postcard")}</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>{addPriceButton("postcard", true)}</td>
-                </tr>
-                <tr>
-                    <td>Letters</td>
-                    <td>{addPriceButton("letter", false, 1)}</td>
-                    <td>{addPriceButton("letter", false, 2)}</td>
-                    <td>{addPriceButton("letter", false, 3)}</td>
-                    <td>{addPriceButton("letter", false, 4)} (up to 3.5 oz)</td>
-                    <td>{addPriceButton("letter", true)}</td>
-                </tr>
-                <tr>
-                    <td>Large Envelopes</td>
-                    <td>{addPriceButton("large_envelope", false, 1)}</td>
-                    <td>{addPriceButton("large_envelope", false, 2)}</td>
-                    <td>{addPriceButton("large_envelope", false, 3)}</td>
-                    <td>{addPriceButton("large_envelope", false, 4)} (up to 3.5 oz)</td>
-                    <td>{addPriceButton("large_envelope", true)}</td>
-                </tr>
-                <tr>
-                    <td>Custom</td>
-                    <td colSpan={5}>
-                        <NumberInput
-                            onChange={(valueString) => setCustomValue(parse(valueString))}
-                            value={format(customValue)}
-                            min={1} max={1000}
-                            style={{ width: "15rem", display: "inline-block", marginRight: "1rem" }}
-                          >
-                            <NumberInputField placeholder="enter postage in cents" />
-                            <NumberInputStepper>
-                                <NumberIncrementStepper />
-                                <NumberDecrementStepper />
-                            </NumberInputStepper>
-                        </NumberInput>
-                        <Button onClick={onCalculate}>Calculate</Button>
-                    </td>
-                </tr>
-            </tbody>
-        </Table>
+        <TableContainer maxWidth={800}>
+            <Table variant='striped' size='sm'>
+                <Thead>
+                    <Tr>
+                        <Th></Th>
+                        <Th>1 oz</Th>
+                        <Th>2 oz</Th>
+                        <Th>3 oz</Th>
+                        <Th>4 oz</Th>
+                        <Th>International 1 oz</Th>
+                    </Tr>
+                </Thead>
+                <Tbody>
+                    <Tr>
+                        <Td>Postcards</Td>
+                        <Td>{addPriceButton("postcard")}</Td>
+                        <Td>-</Td>
+                        <Td>-</Td>
+                        <Td>-</Td>
+                        <Td>{addPriceButton("postcard", true)}</Td>
+                    </Tr>
+                    <Tr>
+                        <Td>Letters</Td>
+                        <Td>{addPriceButton("letter", false, 1)}</Td>
+                        <Td>{addPriceButton("letter", false, 2)}</Td>
+                        <Td>{addPriceButton("letter", false, 3)}</Td>
+                        <Td>{addPriceButton("letter", false, 4)} <br/> (up to 3.5 oz)</Td>
+                        <Td>{addPriceButton("letter", true)}</Td>
+                    </Tr>
+                    <Tr>
+                        <Td>Large Envelopes</Td>
+                        <Td>{addPriceButton("large_envelope", false, 1)}</Td>
+                        <Td>{addPriceButton("large_envelope", false, 2)}</Td>
+                        <Td>{addPriceButton("large_envelope", false, 3)}</Td>
+                        <Td>{addPriceButton("large_envelope", false, 4)} <br/> (up to 3.5 oz)</Td>
+                        <Td>{addPriceButton("large_envelope", true)}</Td>
+                    </Tr>
+                    <Tr>
+                        <Td>Custom</Td>
+                        <Td colSpan={5}>
+                            <NumberInput
+                                onChange={(valueString) => setCustomValue(parse(valueString))}
+                                value={format(customValue)}
+                                min={1} max={1000}
+                                style={{ width: "15rem", display: "inline-block", marginRight: "1rem" }}
+                            >
+                                <NumberInputField placeholder="enter postage in cents" />
+                                <NumberInputStepper>
+                                    <NumberIncrementStepper />
+                                    <NumberDecrementStepper />
+                                </NumberInputStepper>
+                            </NumberInput>
+                            <Button onClick={onCalculate}>Calculate</Button>
+                        </Td>
+                    </Tr>
+                </Tbody>
+            </Table>
+        </TableContainer>
     );
 }
 

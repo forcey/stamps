@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Stamp } from '../algorithm/stamp';
-import { Checkbox } from '@chakra-ui/react'
+import { Checkbox, Wrap, WrapItem, Box } from '@chakra-ui/react'
 
 function StampButtons({ stamps, onSelectionChanged }: {
   stamps: Stamp[], onSelectionChanged: (selected: Map<number, Stamp>) => void
@@ -22,18 +22,24 @@ function StampButtons({ stamps, onSelectionChanged }: {
   }
 
   const renderButton = function (stamp: Stamp) {
-    return <Checkbox
-      key={stamp.id}
-      isChecked={isChecked(stamp)}
-      onChange={e => setChecked(stamp, e.currentTarget.checked)}
-    >
-      {stamp.name}
-    </Checkbox>;
+    return <WrapItem>
+      <Checkbox
+        key={stamp.id}
+        isChecked={isChecked(stamp)}
+        onChange={e => setChecked(stamp, e.currentTarget.checked)}
+      >
+        {stamp.name}
+      </Checkbox>
+    </WrapItem>;
   }
 
   const stampButtons = stamps.map(renderButton);
   return (
-    <div>{stampButtons}</div>
+    <Box marginTop={'1rem'} marginBottom={'1rem'}>
+      <Wrap>
+        {stampButtons}
+      </Wrap>
+    </Box>
   );
 }
 
