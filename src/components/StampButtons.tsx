@@ -42,11 +42,7 @@ function StampButtons({ stamps, onSelectionChanged }: {
 
   const stampButtons = stamps.map(renderButton);
   return (
-    <Container fluid>
-      <Row>
-        <Col>{stampButtons}</Col>
-      </Row>
-    </Container>
+    <div>{stampButtons}</div>
   );
 }
 

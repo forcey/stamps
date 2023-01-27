@@ -26,13 +26,13 @@ function App() {
 
   return (
     <div className="App">
-      <Container fluid="md">
-        <Row>
-          <Col><StampButtons stamps={stamps} onSelectionChanged={setSelected} /></Col>
-        </Row>
-        <Row>
-          <Col><Postage onSetPostage={(p: number) => getSolutions(p)} /></Col>
-        </Row>
+      <div>
+        <StampButtons stamps={stamps} onSelectionChanged={setSelected} />
+      </div>
+      <div>
+        <Postage onSetPostage={(p: number) => getSolutions(p)} />
+      </div>
+      <Container>
         {solutionRow}
       </Container>
     </div>
