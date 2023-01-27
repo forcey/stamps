@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import ToggleButton from 'react-bootstrap/ToggleButton';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import { Stamp } from '../algorithm/stamp';
+import { Checkbox } from '@chakra-ui/react'
 
 function StampButtons({ stamps, onSelectionChanged }: {
   stamps: Stamp[], onSelectionChanged: (selected: Map<number, Stamp>) => void
@@ -25,19 +22,13 @@ function StampButtons({ stamps, onSelectionChanged }: {
   }
 
   const renderButton = function (stamp: Stamp) {
-    return <ToggleButton
-      className="mb-2"
-      id={"toggle-" + stamp.id}
+    return <Checkbox
       key={stamp.id}
-      type="checkbox"
-      variant="outline-primary"
-      checked={isChecked(stamp)}
+      isChecked={isChecked(stamp)}
       onChange={e => setChecked(stamp, e.currentTarget.checked)}
-      style={{ marginRight: "1em" }}
-      value={''}
     >
       {stamp.name}
-    </ToggleButton>;
+    </Checkbox>;
   }
 
   const stampButtons = stamps.map(renderButton);

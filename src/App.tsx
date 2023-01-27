@@ -1,7 +1,4 @@
 import { useState } from 'react'
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import StampButtons from './components/StampButtons';
 import Postage from './components/Postage';
 import calculate, { Solution } from './algorithm/calculate';
@@ -21,8 +18,8 @@ function App() {
   }
 
   const solutionRow = (solution) ?
-    solution.paths.map((path, i) => (<Row key={"solution_" + i}>{path.map(x => x.name).join(', ')}</Row>)) :
-    <Row>No solution</Row>;
+    solution.paths.map((path, i) => (<div key={"solution_" + i}>{path.map(x => x.name).join(', ')}</div>)) :
+    <div>No solution</div>;
 
   return (
     <div className="App">
@@ -32,9 +29,7 @@ function App() {
       <div>
         <Postage onSetPostage={(p: number) => getSolutions(p)} />
       </div>
-      <Container>
-        {solutionRow}
-      </Container>
+      {solutionRow}
     </div>
   );
 }

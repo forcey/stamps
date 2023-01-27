@@ -1,6 +1,11 @@
-import Table from 'react-bootstrap/Table';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import {
+    Table, Button,
+    NumberInput,
+    NumberInputField,
+    NumberInputStepper,
+    NumberIncrementStepper,
+    NumberDecrementStepper
+} from '@chakra-ui/react'
 import React, { useState } from 'react';
 import { calculatePrice, displayPrice, Product } from '../algorithm/stamp';
 
@@ -10,16 +15,19 @@ function Postage({ onSetPostage }: { onSetPostage: (p: number) => void }) {
     const addPriceButton = (product: Product, international = false, weight = 1) => {
         const value = calculatePrice(product, international, weight);
         const text = displayPrice(value);
-        return <Button variant="primary" onClick={e => onSetPostage(value)}>{text}</Button>
+        return <Button colorScheme='blue' onClick={e => onSetPostage(value)}>{text}</Button>
     }
     const onCalculate = function () {
         onSetPostage(parseInt(customValue));
     }
 
+    const format = (val: string) => val ? val + `¢` : ""
+    const parse = (val: string) => val.replace(/¢$/, '')
+
     // https://pe.usps.com/text/dmm300/Notice123.htm
     // To be updated 1/22/2023. https://about.usps.com/newsroom/national-releases/2022/1007-usps-announces-new-prices-for-2023.htm
     return (
-        <Table striped bordered hover>
+        <Table variant='striped'>
             <thead>
                 <tr>
                     <th></th>
@@ -58,12 +66,18 @@ function Postage({ onSetPostage }: { onSetPostage: (p: number) => void }) {
                 <tr>
                     <td>Custom</td>
                     <td colSpan={5}>
-                        <Form.Control id="target" type="number"
-                            placeholder="enter postage in cents" htmlSize={10}
-                            onChange={e => setCustomValue(e.target.value)}
-                            style={{ width: "20em", display: "inline-block", marginRight: "1em" }}
+                        <NumberInput
+                            onChange={(valueString) => setCustomValue(parse(valueString))}
+                            value={format(customValue)}
                             min={1} max={1000}
-                        />
+                            style={{ width: "15rem", display: "inline-block", marginRight: "1rem" }}
+                          >
+                            <NumberInputField placeholder="enter postage in cents" />
+                            <NumberInputStepper>
+                                <NumberIncrementStepper />
+                                <NumberDecrementStepper />
+                            </NumberInputStepper>
+                        </NumberInput>
                         <Button onClick={onCalculate}>Calculate</Button>
                     </td>
                 </tr>
