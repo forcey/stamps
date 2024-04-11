@@ -32,7 +32,7 @@ function Postage({ onSetPostage }: { onSetPostage: (p: number) => void }) {
     const parse = (val: string) => val.replace(/¢$/, '')
 
     // https://pe.usps.com/text/dmm300/Notice123.htm
-    // To be updated 1/22/2023. https://about.usps.com/newsroom/national-releases/2022/1007-usps-announces-new-prices-for-2023.htm
+    // To be updated 7/14/2024. https://about.usps.com/newsroom/national-releases/2024/0409-usps-recommends-new-prices-for-july-2024.htm
     return (
         <TableContainer maxWidth={800}>
             <Table variant='striped' size='sm'>
