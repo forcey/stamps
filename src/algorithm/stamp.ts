@@ -1,4 +1,5 @@
-import priceTable from './prices_20240121.json';
+// https://pe.usps.com/text/dmm300/Notice123.htm
+import priceTable from './prices_20240714.json';
 
 export function displayPrice(value: number): string {
     if (value < 100) {

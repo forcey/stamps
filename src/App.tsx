@@ -7,7 +7,7 @@ import { Stamp } from './algorithm/stamp';
 import './App.css';
 
 function App() {
-  const stamps = ([1, 3, 5, 10, 33, 65, 86].map(v => Stamp.fixed(v)).concat(
+  const stamps = ([1, 3, 5, 10, 29, 32, 33, 65, 86].map(v => Stamp.fixed(v)).concat(
     [Stamp.forever(), Stamp.globalForever()])).sort((a, b) => a.value - b.value);
   const [selected, setSelected] = useState(new Map());
   const [solution, setSolution] = useState<Solution | null>(null);
