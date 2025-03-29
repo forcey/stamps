@@ -9,7 +9,16 @@ import './App.css';
 function App() {
   const stamps = ([1, 3, 5, 10, 29, 32, 33, 65, 86].map(v => Stamp.fixed(v)).concat(
     [Stamp.forever(), Stamp.globalForever()])).sort((a, b) => a.value - b.value);
-  const [selected, setSelected] = useState(new Map());
+  
+  // Initialize selected state with all stamps except 65¢
+  const initialSelected = new Map();
+  stamps.forEach(stamp => {
+    if (stamp.value !== 65) {
+      initialSelected.set(stamp.id, stamp);
+    }
+  });
+  
+  const [selected, setSelected] = useState(initialSelected);
   const [solution, setSolution] = useState<Solution | null>(null);
 
   const getSolutions = function (postage: number) {
@@ -24,7 +33,7 @@ function App() {
   return (
     <div className="App">
       <div>
-        <StampButtons stamps={stamps} onSelectionChanged={setSelected} />
+        <StampButtons stamps={stamps} onSelectionChanged={setSelected} initialSelection={initialSelected} />
       </div>
       <div>
         <Postage onSetPostage={(p: number) => getSolutions(p)} />
