@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 import { Stamp } from '../algorithm/stamp';
-import { Checkbox, Wrap, WrapItem, Box } from '@chakra-ui/react'
+import { Checkbox, Wrap, WrapItem, Box } from '@chakra-ui/react';
 
-function StampButtons({ stamps, onSelectionChanged, initialSelection }: {
-  stamps: Stamp[], 
-  onSelectionChanged: (selected: Map<string, Stamp>) => void,
-  initialSelection: Map<string, Stamp>
-}) {
-  const [selected, setSelected] = useState(initialSelection);
+interface StampButtonsProps {
+  stamps: Stamp[];
+  onSelectionChanged: (selected: Map<string, Stamp>) => void;
+  initialSelection: Map<string, Stamp>;
+}
 
-  const isChecked = function (stamp: Stamp) {
-    return selected.has(stamp.id);
-  }
-  const setChecked = function (stamp: Stamp, checked: boolean) {
+const StampButtons: React.FC<StampButtonsProps> = ({
+  stamps,
+  onSelectionChanged,
+  initialSelection,
+}) => {
+  const [selected, setSelected] = useState<Map<string, Stamp>>(initialSelection);
+
+  const isChecked = (stamp: Stamp): boolean => selected.has(stamp.id);
+
+  const setChecked = (stamp: Stamp, checked: boolean): void => {
     if (checked) {
       selected.set(stamp.id, stamp);
     } else {
@@ -23,17 +28,16 @@ function StampButtons({ stamps, onSelectionChanged, initialSelection }: {
     onSelectionChanged(newSelected);
   }
 
-  const renderButton = function (stamp: Stamp) {
-    return <WrapItem>
+  const renderButton = (stamp: Stamp) => (
+    <WrapItem key={stamp.id}>
       <Checkbox
-        key={stamp.id}
         isChecked={isChecked(stamp)}
-        onChange={e => setChecked(stamp, e.currentTarget.checked)}
+        onChange={(e) => setChecked(stamp, e.currentTarget.checked)}
       >
         {stamp.name}
       </Checkbox>
-    </WrapItem>;
-  }
+    </WrapItem>
+  );
 
   const stampButtons = stamps.map(renderButton);
   return (
@@ -58,6 +62,6 @@ function StampButtons({ stamps, onSelectionChanged, initialSelection }: {
       </Wrap>
     </Box>
   );
-}
+};
 
 export default StampButtons;

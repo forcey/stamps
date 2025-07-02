@@ -12,24 +12,36 @@ import {
     NumberInputStepper,
     NumberIncrementStepper,
     NumberDecrementStepper
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { calculatePrice, displayPrice, Product } from '../algorithm/stamp';
 
-function Postage({ onSetPostage }: { onSetPostage: (p: number) => void }) {
+interface PostageProps {
+    onSetPostage: (p: number) => void;
+}
+
+const Postage: React.FC<PostageProps> = ({ onSetPostage }) => {
     const [customValue, setCustomValue] = useState('');
 
-    const addPriceButton = (product: Product, international = false, weight = 1) => {
+    const addPriceButton = (
+        product: Product,
+        international = false,
+        weight = 1,
+    ) => {
         const value = calculatePrice(product, international, weight);
         const text = displayPrice(value);
-        return <Button colorScheme='blue' onClick={e => onSetPostage(value)}>{text}</Button>
-    }
-    const onCalculate = function () {
+        return (
+            <Button colorScheme='blue' onClick={() => onSetPostage(value)}>
+                {text}
+            </Button>
+        );
+    };
+    const onCalculate = () => {
         onSetPostage(parseInt(customValue));
-    }
+    };
 
-    const format = (val: string) => val ? val + `¢` : ""
-    const parse = (val: string) => val.replace(/¢$/, '')
+    const format = (val: string) => (val ? `${val}¢` : '');
+    const parse = (val: string) => val.replace(/¢$/, '');
 
     return (
         <TableContainer maxWidth={800}>
