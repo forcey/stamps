@@ -1,15 +1,15 @@
-import { Stamp } from "./stamp";
+import { Stamp } from './stamp';
 
-export type Solution = {
+export interface Solution {
     count: number;
-    paths: Array<Array<Stamp>>;
+    paths: Stamp[][];
 }
 
-function calculate(stamps: Stamp[], target: number): Solution | null {
-    stamps.sort((a, b) => a.value - b.value);
+export function calculate(stamps: Stamp[], target: number): Solution | null {
+    const sortedStamps = [...stamps].sort((a, b) => a.value - b.value);
 
     const solutions = new Map<number, Solution>();
-    const makeSolution = function (prev: number, stamp: Stamp): Solution | null {
+    const makeSolution = (prev: number, stamp: Stamp): Solution | null => {
         if (prev === 0) {
             return {
                 count: 1,
@@ -32,7 +32,7 @@ function calculate(stamps: Stamp[], target: number): Solution | null {
         return null;
     }
 
-    const updateSolution = function (x: number, newSolution: Solution | null) {
+    const updateSolution = (x: number, newSolution: Solution | null): void => {
         if (!newSolution) {
             return;
         }
@@ -48,8 +48,8 @@ function calculate(stamps: Stamp[], target: number): Solution | null {
         }
     }
 
-    for (var i = 1; i <= target; i++) {
-        for (var stamp of stamps) {
+    for (let i = 1; i <= target; i++) {
+        for (const stamp of sortedStamps) {
             if (stamp.value > i) {
                 break;
             }
