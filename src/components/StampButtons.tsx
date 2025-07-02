@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Stamp } from '../algorithm/stamp';
 import { Checkbox, Wrap, WrapItem, Box } from '@chakra-ui/react';
 
@@ -14,6 +14,10 @@ const StampButtons: React.FC<StampButtonsProps> = ({
   initialSelection,
 }) => {
   const [selected, setSelected] = useState<Map<string, Stamp>>(initialSelection);
+
+  useEffect(() => {
+    setSelected(new Map(initialSelection));
+  }, [initialSelection, stamps]);
 
   const isChecked = (stamp: Stamp): boolean => selected.has(stamp.id);
 

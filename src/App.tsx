@@ -45,7 +45,7 @@ const App: React.FC = () => {
         if (cookieData.selected.includes(stamp.id)) {
           sel.set(stamp.id, stamp);
         }
-      } else if (stamp.value !== 65) {
+      } else {
         sel.set(stamp.id, stamp);
       }
     });
@@ -65,7 +65,7 @@ const App: React.FC = () => {
     setSelected((prev) => {
       const newMap = new Map<string, Stamp>();
       stamps.forEach((s) => {
-        if (prev.has(s.id) || (!cookieData && s.value !== 65)) {
+        if (prev.has(s.id) || !cookieData) {
           newMap.set(s.id, s);
         }
       });
@@ -92,15 +92,11 @@ const App: React.FC = () => {
       ))
     : <div>No solution</div>;
 
-  const stampButtonsKey =
-    stamps.map((s) => s.id).join(',') + Array.from(selected.keys()).join(',');
-
   return (
     <div className="App">
       <EditStamps stampValues={stampValues} onUpdate={setStampValues} />
       <div>
         <StampButtons
-          key={stampButtonsKey}
           stamps={stamps}
           onSelectionChanged={setSelected}
           initialSelection={selected}
