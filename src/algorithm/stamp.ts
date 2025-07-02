@@ -1,5 +1,10 @@
 // https://pe.usps.com/text/dmm300/Notice123.htm
-import priceTable from './prices_20240714.json';
+import prices2024 from './prices_20240714.json';
+import prices2025 from './prices_20250713.json';
+
+const EFFECTIVE_2025 = new Date('2025-07-13');
+const today = new Date();
+const priceTable = today >= EFFECTIVE_2025 ? prices2025 : prices2024;
 
 export function displayPrice(value: number): string {
     if (value < 100) {

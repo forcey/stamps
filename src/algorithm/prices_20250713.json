@@ -1,0 +1,17 @@
+{
+    "postcard": {
+        "base": 61,
+        "additional": 0,
+        "international": 170
+    },
+    "letter": {
+        "base": 78,
+        "additional": 29,
+        "international": 170
+    },
+    "large_envelope": {
+        "base": 163,
+        "additional": 27,
+        "international": 315
+    }
+}
